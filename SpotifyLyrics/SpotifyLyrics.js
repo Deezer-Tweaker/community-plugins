@@ -31,8 +31,7 @@ module.exports = {
       replace: '$1console.log(n,a,s,c,l,d,p,m,b,g,y,v,_);'
     }
   ],
-  inject({ Api }) {
-    const React = require('react');
+  inject({ Api, React }) {
     Api.Routes.create('/plugins/spotifylyrics/callback', () => {
       return React.createElement('span', {}, 'Done');
     });
