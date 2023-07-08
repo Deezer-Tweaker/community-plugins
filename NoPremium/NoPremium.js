@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'No Premium',
+  name: 'NoPremium',
   description: 'Removes all ads (banners, audio) and offers to subscribe to Deezer Premium',
   screenshot: 'screenshot.png',
   replacements: [
