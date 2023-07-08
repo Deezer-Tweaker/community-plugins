@@ -6,16 +6,26 @@ module.exports = {
       file: '%jsCache%/route-naboo.fda0f9eaad2eeb36f5b5.js',
       find: /(Ue.ShowLyrics=\(\{item:e,lyricsId:t,onPlayLyrics:r}\)=>\{)/g,
       replace: `$1
-      const accessToken = DeezerTweaker.Plugins['SpotifyLyrics'].Settings.get('access_token');
-      async function fetchLyrics(accessToken) {
-        const results = await fetch(\`https://api.spotify.com/v1/search?q=track%3A\${e.title}+artist%3A\${e.artist.name}&type=track&limit=1\`, {
-          headers: { Authorization: 'Bearer ' + accessToken }
-        });
-        console.log(results);
-      }
-      // No lyrics are available on Deezer 
-      if (t === null) {
-        if (!accessToken || DeezerTweaker.Plugins['SpotifyLyrics'].Settings.get('expires_at') < Date.now()) {
+      const [lyricsFound, setLyricsFound] = i.a.useState(false);
+      if (t && t !== "0") setLyricsFound(true);
+      if (!lyricsFound) {
+        t = "1";
+        async function fetchLyrics(accessToken) {
+          const results = await fetch(\`https://api.spotify.com/v1/search?q=track%3A\${e.title}+artist%3A\${e.artist.name}&type=track&limit=1\`, {
+            headers: { Authorization: 'Bearer ' + accessToken }
+          });
+          const json = await results.json();
+          const id = json.tracks.items[0]?.id;
+          if (!id) return;
+          const lyricsReq = await fetch(\`https://spotify-lyric-api.herokuapp.com/?trackid=\${id}&format=lrc\`);
+          if (lyricsReq.status === 404) return;
+          setLyricsFound(true);
+          const lyrics = await lyricsReq.json();
+        }
+        if (
+          !DeezerTweaker.Plugins['SpotifyLyrics'].Settings.get('access_token') || 
+          (DeezerTweaker.Plugins['SpotifyLyrics'].Settings.get('expires_at') * 1000) < Date.now()
+        ) {
           fetch('https://accounts.spotify.com/api/token', { 
             headers: { 
               Authorization: 'Basic ' + btoa('782b7e0e60444f8d935e0ef5250819ad:4d98697f674f4f5b823604c7f36d6eee'), 
