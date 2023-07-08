@@ -25,12 +25,12 @@ module.exports = {
             method: 'POST'
           }).then(res => res.json()).then(json => {
             DeezerTweaker.Plugins['SpotifyLyrics'].Settings.set('access_token', json.access_token);
-            DeezerTweaker.Plugins['SpotifyLyrics'].Settings.set('expires_at', Date.now() + json.expires_in);
+            DeezerTweaker.Plugins['SpotifyLyrics'].Settings.set('expires_at', Math.floor((Date.now() / 1000) + json.expires_in));
             console.log('Saved access token');
             fetchLyrics(json.access_token);
           });
         } else {
-          fetchLyrics(accessToken);
+          fetchLyrics(DeezerTweaker.Plugins['SpotifyLyrics'].Settings.get('access_token'));
         }
       }
       `
