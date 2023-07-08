@@ -1,13 +1,12 @@
 module.exports = {
   name: 'SpotifyLyrics',
-  description: 'Fetch Spotify lyrics if lyrics are not available for a Deezer track',
+  description: '[BROKEN] Fetch Spotify lyrics if lyrics are not available for a Deezer track',
   replacements: [
     {
       file: '%jsCache%/route-naboo.fda0f9eaad2eeb36f5b5.js',
       find: /(Ue.ShowLyrics=\(\{item:e,lyricsId:t,onPlayLyrics:r}\)=>\{)/g,
       replace: `$1
-      const [lyricsFound, setLyricsFound] = i.a.useState(false);
-      if (t && t !== "0") setLyricsFound(true);
+      const [lyricsFound, setLyricsFound] = i.a.useState(t !== null || t !== "0");
       if (!lyricsFound) {
         t = "1";
         async function fetchLyrics(accessToken) {
