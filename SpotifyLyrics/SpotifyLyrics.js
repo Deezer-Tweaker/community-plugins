@@ -6,7 +6,14 @@ module.exports = {
       type: 'button',
       label: 'Authorize Spotify account',
       subtext: 'Plugin cannot work without being logged in a Spotify account',
-      onClick: () => window.electron.openExternalLink('https://accounts.spotify.com/authorize?response_type=code&client_id=92b6e98016394de7a8508f100d68c99b&redirect_uri=deezer:///fr/deezer-tweaker/plugin/spotify-lyrics/oauth2&scope=')
+      onClick: () => {
+        const query = new URLSearchParams();
+        query.set('response_type', 'code');
+        query.set('client_id', '92b6e98016394de7a8508f100d68c99b');
+        query.set('redirect_uri', 'deezer:///fr/deezer-tweaker/plugin/spotify-lyrics/oauth2');
+        query.set('scope', '');
+        window.electron.openExternalLink(`https://accounts.spotify.com/authorize?${query.toString()}`);
+      }
     }
   ],
   replacements: [
