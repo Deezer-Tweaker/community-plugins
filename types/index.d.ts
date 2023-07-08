@@ -7,6 +7,6 @@ declare interface Api {
 }
 
 declare interface Routes {
-  create: (path: string, component: React.Component) => void,
+  create: (path: string, component) => void,
   redirect: (path, to) => void
 }
