@@ -10,7 +10,7 @@ module.exports = {
         const query = new URLSearchParams();
         query.set('response_type', 'code');
         query.set('client_id', '92b6e98016394de7a8508f100d68c99b');
-        query.set('redirect_uri', 'deezer:///fr/deezer-tweaker/plugin/spotify-lyrics/oauth2');
+        query.set('redirect_uri', 'deezer:///plugins/spotifylyrics/callback');
         query.set('scope', '');
         window.electron.openExternalLink(`https://accounts.spotify.com/authorize?${query.toString()}`);
       }
@@ -31,4 +31,10 @@ module.exports = {
       replace: '$1console.log(n,a,s,c,l,d,p,m,b,g,y,v,_);'
     }
   ],
+  inject({ Api }) {
+    const React = require('react');
+    Api.Routes.create('/plugins/spotifylyrics/callback', () => {
+      return React.createElement('span', {}, 'Done');
+    });
+  }
 }
