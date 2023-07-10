@@ -1,3 +1,6 @@
+/**
+ * @type {import('../types/index').Plugin}
+ */
 module.exports = {
   name: 'SpotifyLyrics',
   description: '[BROKEN] Fetch Spotify lyrics if lyrics are not available for a Deezer track',
