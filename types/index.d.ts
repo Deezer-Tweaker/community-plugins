@@ -20,12 +20,14 @@ declare interface PluginReplacement {
 }
 
 declare interface PluginSetting {
-  type: 'button' | 'select',
+  type: 'button' | 'select' | 'input',
   label: string,
+  default?: string,
   choices?: PluginSelectSettingChoice[]
 }
 
 declare interface PluginSelectSettingChoice {
+  id: string,
   label: string,
 }
 
