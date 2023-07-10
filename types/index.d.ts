@@ -22,6 +22,7 @@ declare interface PluginReplacement {
 declare interface PluginSetting {
   type: 'button' | 'select' | 'input',
   label: string,
+  name?: string,
   default?: string,
   choices?: PluginSelectSettingChoice[]
 }

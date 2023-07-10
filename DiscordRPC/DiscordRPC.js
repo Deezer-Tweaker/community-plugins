@@ -16,6 +16,7 @@ module.exports = {
     {
       type: 'input',
       label: 'Enter your Discord token (the plugin needs it to show the status on YOUR profile)',
+      name: 'discord_token'
     }
   ]
 }
