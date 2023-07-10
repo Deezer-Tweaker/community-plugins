@@ -1,3 +1,34 @@
+export declare interface Plugin {
+  // Plugin name
+  name: string,
+  // A string describing the plugin
+  description: string,
+  // Optional but recommended, a file path to this plugin's screenshot
+  screenshot?: string,
+  //
+  replacements: PluginReplacement[]
+  // Plugin settings
+  settings?: PluginSetting[],
+  // CSS properties to inject globally
+  css?: string
+}
+
+declare interface PluginReplacement {
+  file: string,
+  find: string | RegExp,
+  replace: string
+}
+
+declare interface PluginSetting {
+  type: 'button' | 'select',
+  label: string,
+  choices?: PluginSelectSettingChoice[]
+}
+
+declare interface PluginSelectSettingChoice {
+  label: string,
+}
+
 export declare interface DeezerTweaker {
   Api: Api
 }
